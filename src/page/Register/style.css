@@ -1,0 +1,99 @@
+.register-container {
+    display: flex;
+    min-height: 100vh;
+  }
+  
+  .register-left {
+    flex: 1;
+    background-color: #1a1a1a;
+    display: flex;
+    flex-direction: column;
+    padding: 40px;
+    position: relative;
+  }
+  
+  .logo-container {
+    margin-bottom: 40px;
+  }
+  
+  .logo {
+    color: #fff;
+    font-size: 32px;
+    font-weight: bold;
+  }
+  
+  .welcome-text {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 400px;
+  }
+  
+  .register-right {
+    flex: 1;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .register-form-container {
+    width: 100%;
+    max-width: 400px;
+    padding: 0 40px;
+  }
+  
+  .site-form-item-icon {
+    color: rgba(0, 0, 0, 0.25);
+  }
+  
+  .register-button {
+    height: 45px;
+    font-size: 16px;
+    margin-top: 16px;
+  }
+  
+  .register-footer {
+    text-align: center;
+    margin-top: 24px;
+  }
+  
+  .login-link {
+    color: #1677ff;
+    text-decoration: none;
+  }
+  
+  .login-link:hover {
+    text-decoration: underline;
+  }
+  
+  /* Ant Design form overrides */
+  .ant-form-item-label > label {
+    font-weight: 500;
+  }
+  
+  .ant-input-affix-wrapper {
+    padding: 8px 11px;
+  }
+  
+  /* Responsive design */
+  @media (max-width: 768px) {
+    .register-container {
+      flex-direction: column;
+    }
+    
+    .register-left {
+      padding: 20px;
+      min-height: 200px;
+    }
+    
+    .welcome-text {
+      text-align: center;
+      align-items: center;
+    }
+    
+    .register-form-container {
+      padding: 40px 20px;
+    }
+  }
