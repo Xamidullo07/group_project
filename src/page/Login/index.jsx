@@ -34,23 +34,7 @@ function Login() {
     return <Navigate to={"/"} />;
   }
   return (
-    // <>
-    //   <div className="login">
-    //     <div className="login_page">
-    //       <form action="" onSubmit={onSubmit}>
-    //         <input type="text" placeholder="login" />
-    //         <input type="password" placeholder="password" />
-    //         <button>sign in</button>
-    //       </form>
-    //       <div>
-    //         <p>No account yet?</p>
-    //         <NavLink to={"/ragister"}>Create One</NavLink>
-    //       </div>
-    //     </div>
-    //   </div>
-    // </>
     <div className="container">
-
       <div className="left-panel">
         <img className="logo" src={logo} alt="" />
         <h2 className="welcome-text">Welcome back to</h2>
@@ -59,7 +43,7 @@ function Login() {
       <div className="right-panel">
         <div className="form-container">
           <div className="form-header">
-            <h2>Sign In</h2>
+            <h2>Login</h2>
           </div>
 
           <form onSubmit={onSubmit}>
