@@ -28,6 +28,7 @@ function Login() {
       toast.success("Signed in successfully");
       navigate("/");
     }
+    
   };
 
   if (localStorage.getItem("token")) {
@@ -66,7 +67,6 @@ function Login() {
             </div>
 
             <button type="submit" className="submit-button">
-              {/* <LogIn className="login-icon" /> */}
               Sign In
             </button>
           </form>
