@@ -9,6 +9,7 @@ import {
 import icon from "../img/icon.svg";
 import "./style.css";
 import { Outlet, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const { Search } = Input;
 
@@ -53,6 +54,7 @@ const Navbar = () => {
               className="action-button settings-button"
               onClick={() => {
                 localStorage.removeItem("token")
+               toast.success("Logged out successfully");
                 navigate("/login")
               }}
             />
