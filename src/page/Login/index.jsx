@@ -52,7 +52,7 @@ function Login() {
     }
   };
   if (localStorage.getItem("token")) {
-    return <Navigate to={"/"} />;
+    return <Navigate to={"/main"} />;
   }
 
   return (

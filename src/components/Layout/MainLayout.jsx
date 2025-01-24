@@ -9,7 +9,7 @@ function MainLayout() {
     <div className="bacraound">
       <Navbar />
       <Sidebar />
-      {/* <Outlet/> */}
+      <Outlet/>
     </div>
   );
 }

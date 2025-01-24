@@ -61,7 +61,7 @@ const Navbar = () => {
           </Space>
         </div>
       </div>
-      <Outlet/>
+      {/* <Outlet/> */}
     </>
   );
 };

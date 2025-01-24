@@ -10,14 +10,15 @@ function App() {
   return (
     <div>
       <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/" element={<MainLayout />}>
-          <Route path="main/g" />
-          {/* <Route path="/" element={<Profile />} /> */}
+        <Route path="/" element={<Login />} />
+        <Route path="/main" element={<MainLayout />}>
+          <Route path="main/groups:.groupId" element = {<h1>Group Detail</h1>}/>
+          <Route path="/main" element={<Profile />} />
         </Route>
 
-        {/* <Route path="/login" element={<Login />} /> */}
+        <Route path="/login" element={<Login />} />
         <Route path="/ragister" element={<Register />} />
+        <Route path="*" element = {<h1>Not Found</h1>}/>
       </Routes>
     </div>
   );
