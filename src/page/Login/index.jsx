@@ -45,7 +45,7 @@ function Login() {
       if (response.status === 200) {
         localStorage.setItem("token", response.data.token);
         toast.success("Signed in successfully");
-        navigate("/");
+        navigate("/main");
       }
     } catch (error) {
       toast.error("Incorrect password or username");
