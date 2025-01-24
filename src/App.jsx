@@ -11,7 +11,7 @@ function App() {
     <div>
       <Routes>
         <Route path="/login" element={<Login />} />
-        <Route path="/main" element={<MainLayout />}>
+        <Route path="/" element={<MainLayout />}>
           <Route path="main/g" />
           {/* <Route path="/" element={<Profile />} /> */}
         </Route>
