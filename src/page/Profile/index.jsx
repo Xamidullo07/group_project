@@ -6,9 +6,9 @@ import { CopyOutlined, DeleteOutlined } from "@ant-design/icons";
 import avater from "../../components/img/user.png"
 
 function Profile() {
-  if (!localStorage.getItem("token")) {
-    return <Navigate to={"/login"} />;
-  }
+  // if (!localStorage.getItem("token")) {
+  //   return <Navigate to={"/login"} />;
+  // }
   return (
     <>
       <div className="profile-content">

@@ -1,16 +1,17 @@
 import axios from "axios";
 import React from "react";
-import { Form, Navigate, NavLink, useNavigate } from "react-router-dom";
+import {  Navigate, NavLink, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import logo from "../../components/img/icon.svg";
 import "./style.css";
 import * as Yup from "yup";
 import { ErrorMessage, Field, Formik } from "formik";
+import { Form } from "antd";
 
 // const validationSchema = Yup.object().shape({
 //   username: Yup.string()
 //     .min(6, "at least 6 characters")
-//     .required()
+//     .required("Password is required")
 //     .max(8, "no more than 8 characters"),
 //   password: Yup.string()
 //     .required("Password is required")
@@ -96,7 +97,7 @@ function Login() {
               <Field type ="password" name = "password" id = "password"/>
               <ErrorMessage name = "password" className="error"/>
              </div>
-              <button type="submit">submit</button>
+              <button className="submit-button" type="submit">submit</button>
             </Form>
             ) }            
            </Formik> */}

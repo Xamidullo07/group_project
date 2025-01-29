@@ -10,6 +10,7 @@ import icon from "../img/icon.svg";
 import "./style.css";
 import { Outlet, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { memo } from "react";
 
 const { Search } = Input;
 
@@ -66,4 +67,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default memo( Navbar);

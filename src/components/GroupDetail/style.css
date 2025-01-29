@@ -1,0 +1,150 @@
+.group-detail {
+  padding: 20px;
+  width: calc(100% - 300px);
+  background: #f8f9fa;
+  position: absolute;
+  padding-top: 10px;
+  padding-left: 25px;
+  padding-right: 25px;
+  padding-bottom: 200px;
+  top: 100px;
+  left: 280px;
+  border-radius: 10px;
+}
+
+.group-title {
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.group-content {
+  display: flex;
+  gap: 20px;
+}
+
+.items,
+.members {
+  flex: 1;
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.badge {
+  background: blue;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.items-input {
+  width: 80%;
+  padding: 10px;
+  margin-top: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.add-btn {
+  background: blue;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.members ul {
+  list-style: none;
+  padding: 0;
+}
+
+.members li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #f1f1f1;
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: 5px;
+}
+
+.avatar {
+  background: blue;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+.owner {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  font-size: 16px;
+  background: white;
+  padding: 10px;
+  width: 100%;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.loading {
+  font-size: 18px;
+  text-align: center;
+  padding: 50px;
+}
+
+.group-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.menu-btn {
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.dropdown-menu {
+  position: absolute;
+  right: 0;
+  top: 30px;
+  background: white;
+  border-radius: 5px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  width: 150px;
+  display: flex;
+  flex-direction: column;
+}
+
+.dropdown-menu button {
+  padding: 10px;
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  width: 100%;
+}
+
+.dropdown-menu button:hover {
+  background: #f1f1f1;
+}
