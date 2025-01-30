@@ -67,6 +67,13 @@ function GroupDetail() {
           </h2>
           <input className="items-input" type="text" placeholder="Title" />
           <button className="add-btn">+</button>
+          <div className="items-lists">
+            {group?.items?.map((item) => (
+              <div className="items-list">
+                <p>{item.title}</p>
+              </div>
+            ))}
+          </div>
         </div>
 
         <div className="members">
