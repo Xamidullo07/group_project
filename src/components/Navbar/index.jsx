@@ -8,7 +8,7 @@ import {
 } from "@ant-design/icons";
 import icon from "../img/icon.svg";
 import "./style.css";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Navigate, NavLink, Outlet, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { memo } from "react";
 
@@ -39,6 +39,7 @@ const Navbar = () => {
               type="text"
               icon={<SyncOutlined />}
               className="action-button"
+              href="/"
             />
 
             <Badge count="9+" size="small">

@@ -3,7 +3,7 @@ import { Navigate } from "react-router-dom";
 import "./style.css";
 import { Button } from "antd";
 import { CopyOutlined, DeleteOutlined } from "@ant-design/icons";
-import avater from "../../components/img/user.png"
+import avater from "../../components/img/user.png";
 
 function Profile() {
   // if (!localStorage.getItem("token")) {
@@ -33,6 +33,9 @@ function Profile() {
         </div>
         <div>
           <img className="profile-avatar" src={avater} alt="" />
+          <div className="profile-name">
+            
+          </div>
         </div>
       </div>
     </>
