@@ -311,6 +311,7 @@ function GroupDetail() {
             </div>
           </div>
         </div>
+        
       )}
       </div>
     </div>
