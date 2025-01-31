@@ -177,11 +177,11 @@ function GroupDetail() {
         }
       );
 
-      setmembers([...members, res.data.member]); // ✅ Yangi a'zoni ro‘yxatga qo‘shish
+      setmembers([...members, res.data.member]);
       toast.success("Member added successfully", { position: "top-right", autoClose: 3000 });
 
-      setShowModal(false); // ✅ Modalni yopish
-      memberInputRef.current.value = ""; // ✅ Inputni tozalash
+      setShowModal(false); 
+      memberInputRef.current.value = ""; 
     } catch (error) {
       console.error("Error adding member", error);
       toast.error("Failed to add member", { position: "top-right", autoClose: 3000 });
