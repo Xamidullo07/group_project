@@ -14,6 +14,8 @@ function GroupDetail() {
   const inputRef = useRef(null);
   const [me, setMe] = useState(null);
   const [bought, setBought] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const memberInputRef = useRef(null);
 
   useEffect(() => {
     (async function () {
@@ -26,16 +28,16 @@ function GroupDetail() {
             },
           }
         );
-        
+
         let resme = await axios.get(
-          `https://nt-shopping-list.onrender.com/api/auth`,{
+          `https://nt-shopping-list.onrender.com/api/auth`,
+          {
             headers: {
               "x-auth-token": `${localStorage.getItem("token")}`,
             },
           }
         );
         // console.log(resme);
-        
 
         let resgroup = response.data.find((val) => val._id === groupId);
         setGroup(resgroup);
@@ -65,15 +67,14 @@ function GroupDetail() {
         },
       }
     );
-    
+
     console.log(response);
     setItems([...items, response.data.item]);
     inputRef.current.value = "";
     toast.success("Item is created successfully", {
       position: "top-right",
-      autoClose: 3000, 
+      autoClose: 3000,
     });
-    
   };
 
   const delItem = async (id) => {
@@ -93,18 +94,17 @@ function GroupDetail() {
 
       toast.success("Item is deleted successfully", {
         position: "top-right",
-        autoClose: 3000, 
+        autoClose: 3000,
       });
     } catch (error) {
       console.error("error", error);
-
-    
     }
   };
 
-  const asBought = async (itemId) =>{
+  const asBought = async (itemId) => {
     let res = await axios.post(
-      `https://nt-shopping-list.onrender.com/api/items/${itemId}/mark-as-bought`,{},
+      `https://nt-shopping-list.onrender.com/api/items/${itemId}/mark-as-bought`,
+      {},
       {
         headers: {
           "x-auth-token": localStorage.getItem("token"),
@@ -114,13 +114,12 @@ function GroupDetail() {
     setBought(!bought);
     toast.success("Marked as bought successfully", {
       position: "top-right",
-      autoClose: 3000, 
+      autoClose: 3000,
     });
     // console.log(res);
-    
   };
 
-  const asNotBought = async (itemId) =>{
+  const asNotBought = async (itemId) => {
     let res = await axios.delete(
       `https://nt-shopping-list.onrender.com/api/items/${itemId}/mark-as-bought`,
       {
@@ -132,11 +131,64 @@ function GroupDetail() {
     setBought(!bought);
     toast.success("Marked as not bought successfully", {
       position: "top-right",
-      autoClose: 3000, 
+      autoClose: 3000,
     });
     // console.log(res);
-    
   };
+
+  const delMember = async (memberId) => {
+    try {
+      let res = await axios.delete(
+        `https://nt-shopping-list.onrender.com/api/groups/${groupId}/members/${memberId}`,
+        {
+          headers: {
+            "x-auth-token": localStorage.getItem("token"),
+          },
+        }
+      );
+
+      setmembers(members.filter((member) => member._id !== memberId)); 
+
+      toast.success("Member removed successfully", {
+        position: "top-right",
+        autoClose: 3000,
+      });
+    } catch (error) {
+      console.error("Error removing member", error);
+      toast.error("Failed to remove member", {
+        position: "top-right",
+        autoClose: 3000,
+      });
+    }
+  };
+
+  const handleAddMember = async () => {
+    let username = memberInputRef.current.value;
+    if (!username.trim()) return;
+
+    try {
+      let res = await axios.post(
+        `https://nt-shopping-list.onrender.com/api/groups/${groupId}/members`,
+        { username },
+        {
+          headers: {
+            "x-auth-token": localStorage.getItem("token"),
+          },
+        }
+      );
+
+      setmembers([...members, res.data.member]); // ✅ Yangi a'zoni ro‘yxatga qo‘shish
+      toast.success("Member added successfully", { position: "top-right", autoClose: 3000 });
+
+      setShowModal(false); // ✅ Modalni yopish
+      memberInputRef.current.value = ""; // ✅ Inputni tozalash
+    } catch (error) {
+      console.error("Error adding member", error);
+      toast.error("Failed to add member", { position: "top-right", autoClose: 3000 });
+    }
+  };
+
+
   return (
     <div className="group-detail">
       <h1 className="group-title">{group.name}</h1>
@@ -155,7 +207,7 @@ function GroupDetail() {
 
             {menuOpen && (
               <div className="dropdown-menu">
-                <button onClick={() => alert("Add member")}>Add member</button>
+                <button onClick={() => setShowModal(true)}>Add member</button>
                 <button onClick={() => alert("Delete Group")}>
                   Delete Group
                 </button>
@@ -189,24 +241,29 @@ function GroupDetail() {
                 </div>
 
                 <div className="actions">
-                  <button onClick={ () => {
-                    if (item.isBought){
-                      return asNotBought(item._id);
-                    }else{
-                      return asBought(item._id)
-                    }
-                  }} className="btn btn-green" >
+                  <button
+                    onClick={() => {
+                      if (item.isBought) {
+                        return asNotBought(item._id);
+                      } else {
+                        return asBought(item._id);
+                      }
+                    }}
+                    className="btn btn-green"
+                  >
                     <FaShoppingCart />
                     {item.isBought ? "bought" : "buy"}
                   </button>
-                  {
-                    me._id === group.owner._id ? <button
-                    className="btn btn-red"
-                    onClick={() => delItem(item._id)}>
-                    <FaTimes />
-                  </button> : ""
-                  }
-                  
+                  {me._id === group.owner._id ? (
+                    <button
+                      className="btn btn-red"
+                      onClick={() => delItem(item._id)}
+                    >
+                      <FaTimes />
+                    </button>
+                  ) : (
+                    ""
+                  )}
                 </div>
               </div>
             ))}
@@ -219,13 +276,42 @@ function GroupDetail() {
           </h2>
           <ul>
             {members.map((member) => (
-              <li key={member._id}>
-                <span className="avatar">{member.name.charAt(0)}</span>
-                {member.name}
+              <li key={member._id} className="member-item">
+                <div className="member-info">
+                  <span className="avatar">{member.name.charAt(0)}</span>
+                  <div>
+                    <strong>{member.name}</strong>
+                    <p>{member.username}</p>
+                  </div>
+                </div>
+                {me._id === group.owner._id && ( 
+                  <button
+                    className="btn btn-red"
+                    onClick={() => delMember(member._id)}
+                  >
+                    <FaTimes />
+                  </button>
+                )}
               </li>
             ))}
           </ul>
         </div>
+        {showModal && (
+        <div className="modal-overlay">
+          <div className="modal">
+            <h2>Add Member</h2>
+            <input ref={memberInputRef} type="text" placeholder="Enter username" className="modal-input" />
+            <div className="modal-actions">
+              <button className="btn btn-green" onClick={handleAddMember}>
+                Add
+              </button>
+              <button className="btn btn-red" onClick={() => setShowModal(false)}>
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
       </div>
     </div>
   );

@@ -195,3 +195,68 @@ h2 {
   background: red;
   color: white;
 }
+
+
+
+.member-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.member-info {
+  display: flex;
+  align-items: center;
+}
+
+.btn-red {
+  background: red;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn-red:hover {
+  background: darkred;
+}
+
+
+
+
+.modal-overlay {
+  position: fixed;
+
+  width: 60%;
+  height: 60%;
+  background: rgba(255, 255, 255, 0.404);
+  backdrop-filter: blur(5px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal {
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+}
+
+.modal-input {
+  width: 50%;
+  padding: 10px;
+  margin-top: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.modal-actions {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+}
