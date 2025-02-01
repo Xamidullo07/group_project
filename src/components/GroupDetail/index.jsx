@@ -55,7 +55,7 @@ function GroupDetail() {
   }, [groupId, bought]);
 
   if (!group) {
-    return <div className="loading">loading</div>;
+    return <div className="loading"></div>;
   }
 
   const createItem = async (e) => {
