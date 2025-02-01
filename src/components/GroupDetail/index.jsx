@@ -1,9 +1,11 @@
-import React, { useEffect, useRef, useState } from "react";
-import { useParams } from "react-router-dom";
+import React, { useContext, useEffect, useRef, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { FaShoppingCart, FaTimes } from "react-icons/fa";
 import axios from "axios";
 import "./style.css";
 import { toast } from "react-toastify";
+import ModalAddMember from "../ModalAddMember";
+import { GroupContext } from "antd/es/checkbox/Group";
 
 function GroupDetail() {
   const { groupId } = useParams();
@@ -14,8 +16,10 @@ function GroupDetail() {
   const inputRef = useRef(null);
   const [me, setMe] = useState(null);
   const [bought, setBought] = useState(false);
-  const [showModal, setShowModal] = useState(false);
-  const memberInputRef = useRef(null);
+  const [addMemModal, setAddMeModal] = useState(false);
+  const navigate = useNavigate();
+  const [groups, setGroups] = useContext(GroupContext);
+
 
   useEffect(() => {
     (async function () {
@@ -147,7 +151,7 @@ function GroupDetail() {
         }
       );
 
-      setmembers(members.filter((member) => member._id !== memberId)); 
+      setmembers(members.filter((member) => member._id !== memberId));
 
       toast.success("Member removed successfully", {
         position: "top-right",
@@ -162,35 +166,48 @@ function GroupDetail() {
     }
   };
 
-  const handleAddMember = async () => {
-    let username = memberInputRef.current.value;
-    if (!username.trim()) return;
+  const addMember = () => {
+    setAddMeModal(!addMemModal);
+  };
 
+  const leaveGroup = async () => {
     try {
       let res = await axios.post(
-        `https://nt-shopping-list.onrender.com/api/groups/${groupId}/members`,
-        { username },
+        `https://nt-shopping-list.onrender.com/api/groups/${groupId}/leave`,{},
         {
           headers: {
             "x-auth-token": localStorage.getItem("token"),
           },
         }
       );
+      if (res.status === 200){
+        toast.error("Left from group successfully", {
+          position: "top-right",
+          autoClose: 3000,
+        });
+        setGroups(groups.filter((val) => val._id !== groupId));
+        navigate("/main");
+      }
 
-      setmembers([...members, res.data.member]);
-      toast.success("Member added successfully", { position: "top-right", autoClose: 3000 });
-
-      setShowModal(false); 
-      memberInputRef.current.value = ""; 
     } catch (error) {
-      console.error("Error adding member", error);
-      toast.error("Failed to add member", { position: "top-right", autoClose: 3000 });
+      console.log(error);
     }
   };
 
-
   return (
     <div className="group-detail">
+      {addMemModal ? (
+        <ModalAddMember
+          onClose={() => setAddMeModal(false)}
+          setAddMeModal={setAddMeModal}
+          groupId={groupId}
+          setmembers={setmembers}
+          members={members}
+        />
+      ) : (
+        ""
+      )}
+
       <h1 className="group-title">{group.name}</h1>
 
       <div className="group-header">
@@ -204,13 +221,10 @@ function GroupDetail() {
             <button className="menu-btn" onClick={() => setMenuOpen(!menuOpen)}>
               &#x22EE; {/* Uchta nuqta (vertical ellipsis) */}
             </button>
-
             {menuOpen && (
               <div className="dropdown-menu">
-                <button onClick={() => setShowModal(true)}>Add member</button>
-                <button onClick={() => alert("Delete Group")}>
-                  Delete Group
-                </button>
+                <button onClick={addMember}>Add member</button>
+                <button onClick={leaveGroup}>Leave Group</button>
               </div>
             )}
           </div>
@@ -284,7 +298,7 @@ function GroupDetail() {
                     <p>{member.username}</p>
                   </div>
                 </div>
-                {me._id === group.owner._id && ( 
+                {me._id === group.owner._id && (
                   <button
                     className="btn btn-red"
                     onClick={() => delMember(member._id)}
@@ -296,23 +310,6 @@ function GroupDetail() {
             ))}
           </ul>
         </div>
-        {showModal && (
-        <div className="modal-overlay">
-          <div className="modal">
-            <h2>Add Member</h2>
-            <input ref={memberInputRef} type="text" placeholder="Enter username" className="modal-input" />
-            <div className="modal-actions">
-              <button className="btn btn-green" onClick={handleAddMember}>
-                Add
-              </button>
-              <button className="btn btn-red" onClick={() => setShowModal(false)}>
-                Cancel
-              </button>
-            </div>
-          </div>
-        </div>
-        
-      )}
       </div>
     </div>
   );

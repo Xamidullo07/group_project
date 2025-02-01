@@ -32,6 +32,7 @@ const Navbar = () => {
             placeholder="Search group and join..."
             className="navbar-search"
             size="large"
+            
           />
 
           <Space size="middle" className="navbar-actions">

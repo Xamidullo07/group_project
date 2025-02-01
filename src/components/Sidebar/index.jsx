@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useState } from "react";
+import React, { memo, useContext, useEffect, useState } from "react";
 import {
   UserCircle2,
   Users2,
@@ -10,29 +10,31 @@ import "./style.css";
 import axios from "axios";
 import { NavLink } from "react-router-dom";
 import { toast } from "react-toastify";
+import { GroupContext } from "antd/es/checkbox/Group";
 
 const Sidebar = () => {
   const [isGroupsExpanded, setIsGroupsExpanded] = useState(true);
-  const [groups, setGroups] = useState([]);
   const [isCreating, setIsCrearing] = useState(false);
+  const [groups, setGroups] = useContext(GroupContext);
+  
+    const handleCloseModal = () => {
+      setIsCrearing(false);
+    };
+  // const [groups, setGroups] = useState([]);
 
-  const handleCloseModal = () => {
-    setIsCrearing(false);
-  };
-
-  useEffect(() => {
-    (async function () {
-      let response = await axios.get(
-        "https://nt-shopping-list.onrender.com/api/groups",
-        {
-          headers: {
-            "x-auth-token": `${localStorage.getItem("token")}`,
-          },
-        }
-      );
-      setGroups(response.data);
-    })();
-  }, []);
+  // useEffect(() => {
+  //   (async function () {
+  //     let response = await axios.get(
+  //       "https://nt-shopping-list.onrender.com/api/groups",
+  //       {
+  //         headers: {
+  //           "x-auth-token": `${localStorage.getItem("token")}`,
+  //         },
+  //       }
+  //     );
+  //     setGroups(response.data);
+  //   })();
+  // }, []);
 
   const onCreateGroup = async (e) => {
     e.preventDefault();

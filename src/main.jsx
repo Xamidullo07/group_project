@@ -4,11 +4,13 @@ import "./index.css";
 import App from "./App.jsx";
 import { BrowserRouter } from "react-router-dom";
 import { Bounce, ToastContainer } from "react-toastify";
+import GroupContextCom from "./components/Context/GroupContex.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <BrowserRouter>
-      <App />
+     <GroupContextCom>
+     <App />
       <ToastContainer
         position="top-right"
         autoClose={5000}
@@ -22,6 +24,7 @@ createRoot(document.getElementById("root")).render(
         theme="light"
         transition={Bounce}
       />
+     </GroupContextCom>
     </BrowserRouter>
   </StrictMode>
 );
