@@ -44,10 +44,14 @@ function GroupDetail() {
         // console.log(resme);
 
         let resgroup = response.data.find((val) => val._id === groupId);
+        if (!resgroup) {
+          console.error("Group not found!");
+          return;
+        }
         setGroup(resgroup);
         setMe(resme.data);
-        setItems(resgroup.items);
-        setmembers(resgroup.members);
+        setItems(resgroup.items || []);
+        setmembers(resgroup.members || []);
       } catch (error) {
         console.error("error", error);
       }
@@ -234,7 +238,7 @@ function GroupDetail() {
       <div className="group-content">
         <div className="items">
           <h2>
-            Items <span className="badge">{items.length}</span>
+            Items <span className="badge">{group?.items?.length || 0}</span>
           </h2>
           <form action="" onSubmit={createItem}>
             <input
@@ -248,7 +252,7 @@ function GroupDetail() {
             </button>
           </form>
           <div className="items-lists">
-            {items?.map((item) => (
+            {group?.items?.map((item) => (
               <div className="items-list" key={item._id}>
                 <div>
                   <p>{item.title}</p>
@@ -258,9 +262,9 @@ function GroupDetail() {
                   <button
                     onClick={() => {
                       if (item.isBought) {
-                        return asNotBought(item._id);
+                        return asNotBought(item?._id);
                       } else {
-                        return asBought(item._id);
+                        return asBought(item?._id);
                       }
                     }}
                     className="btn btn-green"
@@ -286,10 +290,10 @@ function GroupDetail() {
 
         <div className="members">
           <h2>
-            Members <span className="badge">{members.length}</span>
+            Members <span className="badge">{group?.members?.length || 0}</span>
           </h2>
           <ul>
-            {members.map((member) => (
+            {group?.members?.map((member) => (
               <li key={member._id} className="member-item">
                 <div className="member-info">
                   <span className="avatar">{member.name.charAt(0)}</span>
